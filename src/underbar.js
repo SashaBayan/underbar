@@ -340,6 +340,17 @@ console.log(collection[0])
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
+    //make copy of the array using the slice method
+    var copy = array.slice(0);
+    var result = [];
+    while (copy.length > 0) {
+      //while working, doesn't Math.floor make it soo that the last element of an array can never be selected?
+      //why does Math.round induce undefined values when used in place of Math.floor below?
+      var randomIndex = Math.floor(Math.random() * copy.length);
+      result.push(copy[randomIndex]);
+      copy.splice(randomIndex, 1)  
+    };
+    return result;
   };
 
 
@@ -354,6 +365,16 @@ console.log(collection[0])
   // of that string. For example, _.sortBy(people, 'name') should sort
   // an array of people by their name.
   _.sortBy = function(collection, iterator) {
+    var result = [];
+    _.each(collection, function(item, i, c){
+      for (var j = 0; j < c.length; j++) {
+        if(c[i] < c[j]){
+          result.push(c[i])
+        }
+      };
+    });
+    console.log(result)
+    return result
   };
 
   // Zip together two or more arrays with elements of the same index
@@ -396,6 +417,15 @@ console.log(collection[0])
   // Takes an arbitrary number of arrays and produces an array that contains
   // every item shared between all the passed-in arrays.
   _.intersection = function() {
+    var result = [];
+    for (var i = 0; i < arguments.length; i++) {
+      for (var j = 0; j < arguments.length; j++) {
+        for (var k = 0; k < arguments.length; k++) {
+          arguments[i][k]
+        };
+      };
+      arguments[i]
+    };
   };
 
   // Take the difference between one array and a number of other arrays.
