@@ -1,4 +1,4 @@
-/*jshint eqnull:true, expr:true*/
+  /*jshint eqnull:true, expr:true*/
 
 var _ = {};
 
@@ -178,6 +178,15 @@ var _ = {};
   //     return total + number;
   //   }, 0); // should be 6
   _.reduce = function(collection, iterator, accumulator) {
+//ask for clarification of how to use iterator and how arguments are passed into iterator
+//i only knew how to use iterator b/c i was aware of the add function -- what if i don't know what function would be passed in?
+    if(accumulator === undefined){
+      accumulator = collection[0];
+    }
+    _.map(collection, function(item){
+      accumulator = iterator(accumulator, item);
+    });
+    return accumulator;
   };
 
   // Determine if the array or object contains a given value (using `===`).
@@ -196,6 +205,19 @@ var _ = {};
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
     // TIP: Try re-using reduce() here.
+console.log(collection[0])
+      _.each(collection, function(item){
+        console.log(collection[0])
+        if(collection[0] === undefined){
+          return true
+        }
+        if(!!iterator(item) === false){
+          return false
+        } else{
+          return true
+        }
+      });
+
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
@@ -224,14 +246,39 @@ var _ = {};
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
   _.extend = function(obj) {
+    _.each(arguments, function(item){
+      for(var key in item){
+        obj[key] = item[key]
+      }
+    });
+    return obj;
   };
 
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
   _.defaults = function(obj) {
+
+    for (var i = 0; i < arguments.length; i++) {
+    var keysObj = Object.keys(obj);
+    var keysArg = Object.keys(arguments[i]);    
+      arguments[i]
+    };
+    return obj;
   };
 
+  /*  _.each(arguments, function(item){
+      var keysObj = Object.keys(obj);
+      var keysArg = Object.keys(item);
+      
+      for(var key in item){
 
+        if(keysObj[0] !== item[key]){
+        obj[key] = item[key]
+        }
+      }
+    });
+    return obj;   
+    */ 
   /**
    * FUNCTIONS
    * =========
@@ -322,6 +369,18 @@ var _ = {};
   //
   // Hint: Use Array.isArray to check if something is an array
   _.flatten = function(nestedArray, result) {
+    var result = [];
+    var flattener = function(nestedArray){
+      for (var i = 0; i < nestedArray.length; i++) {
+        if(Array.isArray(nestedArray[i]) === false){
+          result.push(nestedArray[i]);
+        } else{
+          flattener(nestedArray[i]);
+        }
+      };
+    };
+    flattener(nestedArray);
+    return result;
   };
 
   // Takes an arbitrary number of arrays and produces an array that contains
