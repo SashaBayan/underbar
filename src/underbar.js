@@ -219,23 +219,20 @@ var _ = {};
     return true
   };
 
-/*      _.each(collection, function(item, i, c){
-
-        if(!!collection[i] === false || undefined){
-          return false
-        }
-        if(!!iterator(collection[i]) === false || undefined){
-          return false
-        } else{
-
-        }
-        return true
-      }); */
-
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
+    for (var i = 0; i < collection.length; i++) {
+      if(iterator === undefined){
+        if(!!collection[i] === true){
+          return true
+        }
+      } else if(!!iterator(collection[i]) === true){
+        return true
+      }    
+    };
+    return false;
   };
 
 
