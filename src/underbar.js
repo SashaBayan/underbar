@@ -334,7 +334,6 @@ var _ = {};
     var cacheResults = [];
     var cacheFunc = func;
     return function(argument){
-      console.log(cacheResults)
       if(cacheResults[argument] == undefined){
       cacheResults[argument] = cacheFunc(argument);
       } 
@@ -404,7 +403,7 @@ var _ = {};
         }
       };
     });
-    console.log(result)
+    //console.log(result)
     return result
   };
 
@@ -449,14 +448,20 @@ var _ = {};
   // every item shared between all the passed-in arrays.
   _.intersection = function() {
     var result = [];
-    for (var i = 0; i < arguments.length; i++) {
-      for (var j = 0; j < arguments.length; j++) {
-        for (var k = 0; k < arguments.length; k++) {
-          arguments[i][k]
-        };
+    var firstArray = arguments[0];
+    //iterator through original array
+    for (var i = 0; i < firstArray.length; i++) {
+      //iterator through arguments
+      for (var j = 1; j < arguments.length; j++) {
+        //iterator through contents of array arguments
+        for (var k = 0; k < arguments[j].length; k++) {
+          if(firstArray[i] === arguments[j][k]){
+            result.push(arguments[j][k]);
+          };
+        }
       };
-      arguments[i]
-    };
+    }; 
+    return result;   
   };
 
   // Take the difference between one array and a number of other arrays.
