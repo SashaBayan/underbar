@@ -266,28 +266,33 @@ var _ = {};
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
   _.defaults = function(obj) {
-
     for (var i = 0; i < arguments.length; i++) {
-    var keysObj = Object.keys(obj);
-    var keysArg = Object.keys(arguments[i]);    
-      arguments[i]
+      //creates variables to help isolate keys and values of respective objects
+      var keysObj = Object.keys(obj);
+      var keysArg = Object.keys(arguments[i]);  
+      var valsObj = obj[keysObj[i]];  
+      var valsArg = obj[keysArg[i]];
+      for(var val in arguments[i]){
+        if(typeof keysObj[0] == 'undefined')
+          obj[val] = arguments[i][val];
+      }
     };
     return obj;
   };
 
-  /*  _.each(arguments, function(item){
-      var keysObj = Object.keys(obj);
-      var keysArg = Object.keys(item);
-      
+/*
+        _.each(arguments, function(item){
       for(var key in item){
-
-        if(keysObj[0] !== item[key]){
-        obj[key] = item[key]
-        }
+        console.log(obj[key])
+        if(obj[key] !== item[key])
+          obj[key] = item[key]
       }
     });
-    return obj;   
-    */ 
+    return obj;
+
+    */
+
+    
   /**
    * FUNCTIONS
    * =========
