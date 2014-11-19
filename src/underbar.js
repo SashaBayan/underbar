@@ -205,20 +205,32 @@ var _ = {};
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
     // TIP: Try re-using reduce() here.
-console.log(collection[0])
-      _.each(collection, function(item){
-        console.log(collection[0])
-        if(collection[0] === undefined){
+    for (var i = 0; i < collection.length; i++) {
+      //if there is no iterator, check to see if contents are false
+      if(iterator == undefined){
+        if(!!collection[i] !== false || undefined){
           return true
+        } 
+      }
+      if(!!iterator(collection[i]) === false || undefined){
+        return false
+      }
+    }
+    return true
+  };
+
+/*      _.each(collection, function(item, i, c){
+
+        if(!!collection[i] === false || undefined){
+          return false
         }
-        if(!!iterator(item) === false){
+        if(!!iterator(collection[i]) === false || undefined){
           return false
         } else{
-          return true
-        }
-      });
 
-  };
+        }
+        return true
+      }); */
 
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
